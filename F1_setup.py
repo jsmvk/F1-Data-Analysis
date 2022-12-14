@@ -1,49 +1,21 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[1]:
-
-
 import fastf1 as ff1
 from fastf1 import utils
 from fastf1 import plotting
 from fastf1 import legacy
-
-
-# In[2]:
-
-
 from matplotlib import pyplot as plt
 from matplotlib.pyplot import figure
 import numpy as np
 import pandas as pd
 import os
 import seaborn as sns
-from datetime import datetime
 from fastf1.core import Laps
 
-
-# In[3]:
-
-
 ff1.plotting.setup_mpl(mpl_timedelta_support=True, color_scheme='fastf1', misc_mpl_mods=True)
-
-
-# In[4]:
-
 
 os.getcwd()
 os.chdir('C:/Users/jsmvk/Desktop/projects/Lic')
 
-
-# In[5]:
-
-
 ff1.Cache.enable_cache('cache')
-
-
-# In[6]:
-
 
 def telemetry(year, race, session, driver_1, driver_2):
     if session == 'Q':
@@ -95,10 +67,6 @@ def telemetry(year, race, session, driver_1, driver_2):
     
     plt.show()
 
-
-# In[7]:
-
-
 def pole_gap(year, race, session):
     if session == 'Q':
         ses = 'Qualifying'
@@ -141,10 +109,6 @@ def pole_gap(year, race, session):
     ax.invert_yaxis()
     ax.set_title(f'{year} {race} {ses} \n Gap to best lap (s)')
 
-
-# In[14]:
-
-
 def session_pace(year, race, session, driver_1, driver_2, driver_3):
     if session == 'Q':
         ses = 'Qualifying'
@@ -176,12 +140,6 @@ def session_pace(year, race, session, driver_1, driver_2, driver_3):
     ax.set_title(f'{year} {race} {ses} quickest lap times')
     ax.legend(loc = 'lower right')
     
-    #print(fast_driver_1['LapTime'])
-
-
-# In[9]:
-
-
 def race_trace(year, race, session, driver_1):
     session = ff1.get_session(year, race, session)
     session.load()
@@ -203,34 +161,6 @@ def race_trace(year, race, session, driver_1):
 
 
 race_trace(2022, 'Monza', 'R', 'VER')
-
-
-# In[11]:
-
-
 telemetry(2022, 'Monza', 'Q', 'RUS', 'VER')
-
-
-# In[12]:
-
-
 pole_gap(2022, 'Monza', 'Q')
-
-
-# In[16]:
-
-
 session_pace(2022, 'Belgium', 'R', 'VER', 'RUS', 'LEC')
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
