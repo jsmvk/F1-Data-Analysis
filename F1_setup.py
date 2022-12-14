@@ -155,11 +155,8 @@ def race_trace(year, race, session, driver_1):
     
     #fig, ax = plt.subplots()
     #fig.set_size_inches(5, 10)
-
-
-# In[10]:
-
-
+    
+    
 race_trace(2022, 'Monza', 'R', 'VER')
 telemetry(2022, 'Monza', 'Q', 'RUS', 'VER')
 pole_gap(2022, 'Monza', 'Q')
