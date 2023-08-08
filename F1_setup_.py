@@ -202,33 +202,11 @@ def race_trace(year, race):
 
 
 race_trace(2022, 'Monza', 'R', 'VER')
-
-
-# In[29]:
-
-
 telemetry(2022, 'Monza', 'Qualifying', 'RUS', 'VER')
-
-
-# In[100]:
-
-
 pole_gap(2023, 'Bahrain', 'Q')
-
-
-# In[143]:
-
-
 session_pace(2023, 'Miami', 'R', 'VER', 'ALO', 'HAM')
-
-
-# In[121]:
-
-
 race_trace(2022, 'Miami')
 
-
-# In[ ]:
 
 
 
