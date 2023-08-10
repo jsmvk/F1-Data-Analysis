@@ -116,6 +116,11 @@ def pole_gap(year, race, session):
     ax.invert_yaxis()
     ax.set_title(f'{year} {race} {full_session_name} \n Gap to best lap (%)')
 
+def fuel_corrected_lap_time(original_lap_time, lap_number, max_lap_number):
+        fuel_correction_time = (max_lap_number - lap_number) * 65
+        fuel_correction_timedelta = timedelta(milliseconds=fuel_correction_time)
+        corrected_lap_time = original_lap_time - fuel_correction_timedelta
+        return corrected_lap_time
 
 def session_pace(year, race, session, driver_1, driver_2):
     
@@ -137,13 +142,6 @@ def session_pace(year, race, session, driver_1, driver_2):
     
     fig, ax = plt.subplots()
     fig.set_size_inches(15, 10)
-    
-    def fuel_corrected_lap_time(original_lap_time, lap_number, max_lap_number):
-        fuel_correction_time = (max_lap_number - lap_number) * 65
-        fuel_correction_timedelta = timedelta(milliseconds=fuel_correction_time)
-        corrected_lap_time = original_lap_time - fuel_correction_timedelta
-        return corrected_lap_time
-
     
     drivers = [{'name': driver_1, 'data': fast_driver_1},
                {'name': driver_2, 'data': fast_driver_2}]
