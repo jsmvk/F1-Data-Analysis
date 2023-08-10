@@ -174,33 +174,6 @@ def session_pace(year, race, session, driver_1, driver_2, driver_3):
     plt.show()
 
 
-# In[151]:
-
-
-def race_trace(year, race):
-    session = ff1.get_session(year, race, 'R')
-    session.load()
-    
-    fig, ax = plt.subplots(figsize=(8.0, 4.9))
-    
-    for drv in session.drivers:
-        drv_laps = session.laps.pick_driver(drv)
-        ax.plot(drv_laps['LapNumber'], drv_laps['Position'])
-    
-    ax.set_ylim([20.5, 0.5])
-    ax.set_yticks([1, 5, 10, 15, 20])
-    ax.set_xlabel('Lap')
-    ax.set_ylabel('Position')
-    
-    ax.legend(bbox_to_anchor=(1.0, 1.02))
-    plt.tight_layout()
-
-    plt.show()
-
-
-# In[98]:
-
-
 race_trace(2022, 'Monza', 'R', 'VER')
 telemetry(2022, 'Monza', 'Qualifying', 'RUS', 'VER')
 pole_gap(2023, 'Bahrain', 'Q')
