@@ -117,7 +117,7 @@ def pole_gap(year, race, session):
     ax.set_title(f'{year} {race} {full_session_name} \n Gap to best lap (%)')
 
 
-def session_pace(year, race, session, driver_1, driver_2, driver_3):
+def session_pace(year, race, session, driver_1, driver_2):
     
     session_mapping = {
     'Q': 'Qualifying',
@@ -134,26 +134,24 @@ def session_pace(year, race, session, driver_1, driver_2, driver_3):
     
     fast_driver_1 = session.laps.pick_driver(driver_1).pick_quicklaps(1.03)
     fast_driver_2 = session.laps.pick_driver(driver_2).pick_quicklaps(1.03)
-    fast_driver_3 = session.laps.pick_driver(driver_3).pick_quicklaps(1.03)
     
     fig, ax = plt.subplots()
     fig.set_size_inches(15, 10)
     
-    def fuel_corrected_lap_time(original_lap_time, lap_number):
-        fuel_correction_time = (57 - lap_number) * 65  # Calculate fuel correction time
+    def fuel_corrected_lap_time(original_lap_time, lap_number, max_lap_number):
+        fuel_correction_time = (max_lap_number - lap_number) * 65
         fuel_correction_timedelta = timedelta(milliseconds=fuel_correction_time)
         corrected_lap_time = original_lap_time - fuel_correction_timedelta
         return corrected_lap_time
 
     
     drivers = [{'name': driver_1, 'data': fast_driver_1},
-               {'name': driver_2, 'data': fast_driver_2},
-               {'name': driver_3, 'data': fast_driver_3}]
+               {'name': driver_2, 'data': fast_driver_2}]
     
     for driver in drivers:
         lap_times = driver['data']['LapTime']
-        corrected_lap_times = [fuel_corrected_lap_time(lt, ln) for ln, lt in enumerate(lap_times, start=1)]
-        ax.plot(range(1, len(lap_times) + 1), corrected_lap_times, marker='o', label=driver['name'])
+        corrected_lap_times = [fuel_corrected_lap_time(lt, ln, max_lap_number) for ln, lt in enumerate(lap_times, start=1)]
+        ax.plot(range(1, len(lap_times) + 1), corrected_lap_times, label=driver['name'])
 
     ax.set_xlabel('Lap Number')
     ax.set_ylabel('Fuel-corrected Lap Time')
@@ -162,14 +160,7 @@ def session_pace(year, race, session, driver_1, driver_2, driver_3):
 
     plt.show()
 
-
-race_trace(2022, 'Monza', 'R', 'VER')
 telemetry(2022, 'Monza', 'Qualifying', 'RUS', 'VER')
 pole_gap(2023, 'Bahrain', 'Q')
 session_pace(2023, 'Miami', 'R', 'VER', 'ALO', 'HAM')
-race_trace(2022, 'Miami')
-
-
-
-
 
