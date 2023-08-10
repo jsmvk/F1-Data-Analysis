@@ -1,18 +1,7 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[2]:
-
-
 import fastf1 as ff1
 from fastf1 import utils
 from fastf1 import plotting
 from fastf1 import legacy
-
-
-# In[39]:
-
-
 from matplotlib import pyplot as plt
 from matplotlib.pyplot import figure
 import numpy as np
@@ -23,28 +12,12 @@ from datetime import datetime
 from datetime import timedelta
 from fastf1.core import Laps
 
-
-# In[4]:
-
-
 ff1.plotting.setup_mpl(mpl_timedelta_support=True, color_scheme='fastf1', misc_mpl_mods=True)
-
-
-# In[5]:
-
 
 os.getcwd()
 os.chdir('C:/Users/jsmvk/Desktop/projects/Lic')
 
-
-# In[6]:
-
-
 ff1.Cache.enable_cache('cache')
-
-
-# In[28]:
-
 
 def telemetry(year, race, session, driver_1, driver_2):
     
@@ -89,9 +62,6 @@ def telemetry(year, race, session, driver_1, driver_2):
     plt.show()
 
 
-# In[9]:
-
-
 def pole_gap(year, race, session):
 
     session = ff1.get_session(year, race, session)
@@ -125,9 +95,6 @@ def pole_gap(year, race, session):
     ax.set_yticklabels(fastest_laps['Driver'])
     ax.invert_yaxis()
     ax.set_title(f'{year} {race} {ses} \n Gap to best lap (%)')
-
-
-# In[142]:
 
 
 def session_pace(year, race, session, driver_1, driver_2, driver_3):
