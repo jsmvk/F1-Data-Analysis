@@ -20,6 +20,16 @@ os.chdir('C:/Users/jsmvk/Desktop/projects/Lic')
 ff1.Cache.enable_cache('cache')
 
 def telemetry(year, race, session, driver_1, driver_2):
+
+    session_mapping = {
+    'Q': 'Qualifying',
+    'R': 'Race',
+    'S': 'Sprint',
+    'FP1': 'FP1',
+    'FP2': 'FP2',
+    'FP3': 'FP3'}
+
+    full_session_name = session_mapping.get(session, 'NA')
     
     session = ff1.get_session(year, race, session)
     session.load()
@@ -46,7 +56,7 @@ def telemetry(year, race, session, driver_1, driver_2):
     ax[0].plot(time_1, speed_1, label = driver_1, color = ff1.plotting.driver_color(driver_1))
     ax[0].plot(time_2, speed_2, label = driver_2, color = ff1.plotting.driver_color(driver_2))
     ax[0].set_ylabel('Speed [km/h]')
-    ax[0].set_title(f'{year} {race} GP {session}')
+    ax[0].set_title(f'{year} {race} GP {full_session_name}')
     ax[0].legend(loc = 'lower right')
     
     ax[1].plot(time_1, throttle_1, label = driver_1, color = ff1.plotting.driver_color(driver_1))
@@ -64,6 +74,16 @@ def telemetry(year, race, session, driver_1, driver_2):
 
 def pole_gap(year, race, session):
 
+    session_mapping = {
+    'Q': 'Qualifying',
+    'R': 'Race',
+    'S': 'Sprint',
+    'FP1': 'FP1',
+    'FP2': 'FP2',
+    'FP3': 'FP3'}
+
+    full_session_name = session_mapping.get(session, 'NA')
+    
     session = ff1.get_session(year, race, session)
     session.load()
     
@@ -94,18 +114,20 @@ def pole_gap(year, race, session):
     ax.set_yticks(fastest_laps.index)
     ax.set_yticklabels(fastest_laps['Driver'])
     ax.invert_yaxis()
-    ax.set_title(f'{year} {race} {ses} \n Gap to best lap (%)')
+    ax.set_title(f'{year} {race} {full_session_name} \n Gap to best lap (%)')
 
 
 def session_pace(year, race, session, driver_1, driver_2, driver_3):
-    if session == 'Q':
-        ses = 'Qualifying'
-    elif session == 'R':
-        ses = 'Race'
-    elif session == 'S':
-        ses = 'Sprint'
-    else:
-        ses = 'Practice'
+    
+    session_mapping = {
+    'Q': 'Qualifying',
+    'R': 'Race',
+    'S': 'Sprint',
+    'FP1': 'FP1',
+    'FP2': 'FP2',
+    'FP3': 'FP3'}
+
+    full_session_name = session_mapping.get(session, 'NA')
     
     session = ff1.get_session(year, race, session)
     session.load()
@@ -135,7 +157,7 @@ def session_pace(year, race, session, driver_1, driver_2, driver_3):
 
     ax.set_xlabel('Lap Number')
     ax.set_ylabel('Fuel-corrected Lap Time')
-    ax.set_title(f'{year} {race} {ses} quickest lap times (fuel-corrected)')
+    ax.set_title(f'{year} {race} {full_session_name} quickest lap times (fuel-corrected)')
     ax.legend(loc='lower right')
 
     plt.show()
