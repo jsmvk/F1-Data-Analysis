@@ -19,9 +19,7 @@ os.chdir('C:/Users/jsmvk/Desktop/projects/Lic')
 
 ff1.Cache.enable_cache('cache')
 
-def telemetry(year, race, session, driver_1, driver_2):
-
-    session_mapping = {
+session_mapping = {
     'Q': 'Qualifying',
     'R': 'Race',
     'S': 'Sprint',
@@ -29,6 +27,9 @@ def telemetry(year, race, session, driver_1, driver_2):
     'FP2': 'FP2',
     'FP3': 'FP3'}
 
+
+def telemetry(year, race, session, driver_1, driver_2):
+    
     full_session_name = session_mapping.get(session, 'NA')
     
     session = ff1.get_session(year, race, session)
@@ -74,14 +75,6 @@ def telemetry(year, race, session, driver_1, driver_2):
 
 def pole_gap(year, race, session):
 
-    session_mapping = {
-    'Q': 'Qualifying',
-    'R': 'Race',
-    'S': 'Sprint',
-    'FP1': 'FP1',
-    'FP2': 'FP2',
-    'FP3': 'FP3'}
-
     full_session_name = session_mapping.get(session, 'NA')
     
     session = ff1.get_session(year, race, session)
@@ -123,14 +116,6 @@ def fuel_corrected_lap_time(original_lap_time, lap_number, max_lap_number):
         return corrected_lap_time
 
 def session_pace(year, race, session, driver_1, driver_2):
-    
-    session_mapping = {
-    'Q': 'Qualifying',
-    'R': 'Race',
-    'S': 'Sprint',
-    'FP1': 'FP1',
-    'FP2': 'FP2',
-    'FP3': 'FP3'}
 
     full_session_name = session_mapping.get(session, 'NA')
     
