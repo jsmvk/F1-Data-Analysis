@@ -110,7 +110,7 @@ def pole_gap(year, race, session):
     ax.set_title(f'{year} {race} {full_session_name} \n Gap to best lap (%)')
 
 def fuel_corrected_lap_time(original_lap_time, lap_number, max_lap_number):
-        fuel_correction_time = (max_lap_number - lap_number) * 65
+        fuel_correction_time = (max_lap_number - lap_number) * 65 # formula source: https://www.reddit.com/r/F1Technical/comments/11oskuy/computation_of_fuelcorrected_lap_time/
         fuel_correction_timedelta = timedelta(milliseconds=fuel_correction_time)
         corrected_lap_time = original_lap_time - fuel_correction_timedelta
         return corrected_lap_time
