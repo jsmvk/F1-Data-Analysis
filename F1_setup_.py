@@ -122,17 +122,18 @@ def session_pace(year, race, session, driver_1, driver_2):
     session = ff1.get_session(year, race, session)
     session.load()
     
-    fast_driver_1 = session.laps.pick_driver(driver_1).pick_quicklaps(1.03)
-    fast_driver_2 = session.laps.pick_driver(driver_2).pick_quicklaps(1.03)
-    
     fig, ax = plt.subplots()
     fig.set_size_inches(15, 10)
     
-    drivers = [{'name': driver_1, 'data': fast_driver_1},
-               {'name': driver_2, 'data': fast_driver_2}]
+    drivers_data = [{'name': driver_1}, {'name': driver_2}]
+                    
+    for driver in drivers_data:
+        fast_laps = session.laps.pick_driver(driver['name']).pick_quicklaps(1.06)
+        driver['data'] = fast_laps
     
-    for driver in drivers:
+    for driver in drivers_data:
         lap_times = driver['data']['LapTime']
+        max_lap_number = len(lap_times) + 1
         corrected_lap_times = [fuel_corrected_lap_time(lt, ln, max_lap_number) for ln, lt in enumerate(lap_times, start=1)]
         ax.plot(range(1, len(lap_times) + 1), corrected_lap_times, label=driver['name'])
 
