@@ -130,8 +130,6 @@ def session_pace(year, race, session, driver_1, driver_2):
     for driver in drivers_data:
         fast_laps = session.laps.pick_driver(driver['name']).pick_quicklaps(1.06)
         driver['data'] = fast_laps
-    
-    for driver in drivers_data:
         lap_times = driver['data']['LapTime']
         max_lap_number = len(lap_times) + 1
         corrected_lap_times = [fuel_corrected_lap_time(lt, ln, max_lap_number) for ln, lt in enumerate(lap_times, start=1)]
