@@ -141,8 +141,3 @@ def session_pace(year, race, session, driver_1, driver_2):
     ax.legend(loc='lower right')
 
     plt.show()
-
-telemetry(2022, 'Monza', 'Q', 'RUS', 'VER')
-pole_gap(2023, 'Bahrain', 'Q')
-session_pace(2023, 'Miami', 'R', 'VER', 'ALO', 'HAM')
-
