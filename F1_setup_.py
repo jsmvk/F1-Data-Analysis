@@ -35,6 +35,9 @@ def telemetry(year, race, session, driver_1, driver_2):
     session = ff1.get_session(year, race, session)
     session.load()
 
+    fig, ax = plt.subplots(3)
+    fig.set_size_inches(20, 10)
+    
     for driver_name in [driver_1, driver_2]:
         fast_driver = session.laps.pick_driver(driver_name).pick_fastest()
         driver_car_data = fast_driver.get_car_data()
@@ -52,9 +55,6 @@ def telemetry(year, race, session, driver_1, driver_2):
 
         ax[0].plot(time, speed, label = driver_name, color = ff1.plotting.driver_color(driver_name))
         ax[1].plot(time, throttle, label = driver_name, color = ff1.plotting.driver_color(driver_name))
-    
-    fig, ax = plt.subplots(3)
-    fig.set_size_inches(20, 10)
 
     ax[0].set_ylabel('Speed [km/h]')
     ax[0].set_title(f'{year} {race} GP {full_session_name}')
