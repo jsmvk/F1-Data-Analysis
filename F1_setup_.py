@@ -35,11 +35,10 @@ def telemetry(year, race, session, driver_1, driver_2):
     session = ff1.get_session(year, race, session)
     session.load()
 
-    fast_driver_1 = session.laps.pick_driver(driver_1).pick_fastest()
-    driver_1_car_data = fast_driver_1.get_car_data()
-    
-    fast_driver_2 = session.laps.pick_driver(driver_2).pick_fastest()
-    driver_2_car_data = fast_driver_2.get_car_data()
+    for driver_name in [driver_1, driver_2]:
+        fast_driver = session.laps.pick_driver(driver_name).pick_fastest()
+        driver_car_data = fast_driver.get_car_data()
+        drivers_data.append({'name': driver_name, 'data': fast_driver, 'car_data': driver_car_data})
     
     delta_time, ref_tel, compare_tel = utils.delta_time(fast_driver_1, fast_driver_2)
     
