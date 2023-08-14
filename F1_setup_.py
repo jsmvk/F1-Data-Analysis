@@ -128,7 +128,7 @@ def session_pace(year, race, session, driver_1, driver_2):
     drivers_data = [{'name': driver_1}, {'name': driver_2}]
                     
     for driver in drivers_data:
-        fast_laps = session.laps.pick_driver(driver['name']).pick_quicklaps(1.06)
+        fast_laps = session.laps.pick_driver(driver['name']).pick_quicklaps(1.06) # Return all laps with LapTime faster than threshold
         driver['data'] = fast_laps
         lap_times = driver['data']['LapTime']
         max_lap_number = len(lap_times) + 1
