@@ -42,25 +42,24 @@ def telemetry(year, race, session, driver_1, driver_2):
     
     delta_time, ref_tel, compare_tel = utils.delta_time(drivers_data[0]['data'], drivers_data[1]['data'])
     
-    speed_1 = driver_1_car_data['Speed']
-    time_1 = driver_1_car_data['Time']
-    throttle_1 = driver_1_car_data['Throttle']
-    
-    time_2 = driver_2_car_data['Time']
-    throttle_2 = driver_2_car_data['Throttle']
-    speed_2 = driver_2_car_data['Speed']
+    for driver in drivers_data:
+        driver_name = driver['name']
+        driver_car_data = driver['car_data']
+
+        speed = driver_car_data['Speed']
+        time = driver_car_data['Time']
+        throttle = driver_car_data['Throttle']
+
+        ax[0].plot(time, speed, label = driver_name, color = ff1.plotting.driver_color(driver_name))
+        ax[1].plot(time, throttle, label = driver_name, color = ff1.plotting.driver_color(driver_name))
     
     fig, ax = plt.subplots(3)
     fig.set_size_inches(20, 10)
-    
-    ax[0].plot(time_1, speed_1, label = driver_1, color = ff1.plotting.driver_color(driver_1))
-    ax[0].plot(time_2, speed_2, label = driver_2, color = ff1.plotting.driver_color(driver_2))
+
     ax[0].set_ylabel('Speed [km/h]')
     ax[0].set_title(f'{year} {race} GP {full_session_name}')
     ax[0].legend(loc = 'lower right')
-    
-    ax[1].plot(time_1, throttle_1, label = driver_1, color = ff1.plotting.driver_color(driver_1))
-    ax[1].plot(time_2, throttle_2, label = driver_2, color = ff1.plotting.driver_color(driver_2))
+
     ax[1].set_xlabel('Time')
     ax[1].set_ylabel('Throttle')
     ax[1].legend(loc = 'lower right')
