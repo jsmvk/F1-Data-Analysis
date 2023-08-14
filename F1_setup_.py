@@ -37,6 +37,8 @@ def telemetry(year, race, session, driver_1, driver_2):
 
     fig, ax = plt.subplots(3)
     fig.set_size_inches(20, 10)
+
+    drivers_data = []
     
     for driver_name in [driver_1, driver_2]:
         fast_driver = session.laps.pick_driver(driver_name).pick_fastest()
