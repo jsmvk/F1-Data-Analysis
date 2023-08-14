@@ -40,7 +40,7 @@ def telemetry(year, race, session, driver_1, driver_2):
         driver_car_data = fast_driver.get_car_data()
         drivers_data.append({'name': driver_name, 'data': fast_driver, 'car_data': driver_car_data})
     
-    delta_time, ref_tel, compare_tel = utils.delta_time(fast_driver_1, fast_driver_2)
+    delta_time, ref_tel, compare_tel = utils.delta_time(drivers_data[0]['data'], drivers_data[1]['data'])
     
     speed_1 = driver_1_car_data['Speed']
     time_1 = driver_1_car_data['Time']
