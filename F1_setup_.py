@@ -147,3 +147,47 @@ compound_color = {'HARD': '#f0f0ec',
                       'MEDIUM': '#ffd12e', 
                       'SOFT': '#da291c',  
                       'WET': '#0067ad'}
+
+def tyre_strategy(year, race, session):
+    
+    full_session_name = session_mapping.get(session, 'NA')
+    
+    session = ff1.get_session(year, race, session)
+    session.load()
+    laps = session.laps
+
+    fig, ax = plt.subplots(figsize=(15, 10))
+    
+    drivers = pd.unique(session.laps['Driver'])
+
+    stints = laps[['Driver', 'Stint', 'Compound', 'LapNumber']]
+    stints = stints.groupby(['Driver', 'Stint', 'Compound'])
+    stints = stints.count().reset_index()
+    stints = stints.rename(columns={'LapNumber': 'StintLength'})
+    
+    for driver in drivers:
+        driver_stints = stints.loc[stints['Driver'] == driver]
+        previous_stint_end = 0
+        
+        for idx, row in driver_stints.iterrows():
+            
+            plt.barh(y = driver,
+                width = row['StintLength'],
+                left = previous_stint_end,
+                color = compound_color[row['Compound']],
+                edgecolor = 'black',
+                fill = True)
+
+            previous_stint_end += row['StintLength']
+
+    plt.title(f'{year} {race} {full_session_name} tyre strategies')
+    plt.xlabel('Lap Number')
+    
+    legend_handles = [Line2D([0], [0], marker='o', label=key, markerfacecolor=value, markersize=10) for key, value in compound_color.items()]
+    legend_labels = list(compound_color.keys())
+    
+    plt.legend(handles=legend_handles, labels=legend_labels, loc='lower right', title='Compounds')
+    ax.invert_yaxis()
+
+    plt.tight_layout()
+    plt.show()
