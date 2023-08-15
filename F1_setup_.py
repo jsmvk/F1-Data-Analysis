@@ -173,7 +173,7 @@ def tyre_strategy(year, race, session):
             
             plt.barh(y = driver,
                 width = row['StintLength'],
-                left = previous_stint_end,
+                left = previous_stint_end, # start of horizontal bar - new stint
                 color = compound_color[row['Compound']],
                 edgecolor = 'black',
                 fill = True)
