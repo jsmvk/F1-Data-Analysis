@@ -183,7 +183,7 @@ def tyre_strategy(year, race, session):
     plt.title(f'{year} {race} {full_session_name} tyre strategies')
     plt.xlabel('Lap Number')
     
-    legend_handles = [Line2D([0], [0], marker='o', label=key, markerfacecolor=value, markersize=10) for key, value in compound_color.items()]
+    legend_handles = [Line2D([0], [0], marker='o', label=key, markerfacecolor=value, markersize=10) for key, value in compound_color.items()] #Line2D creates legend visuals
     legend_labels = list(compound_color.keys())
     
     plt.legend(handles=legend_handles, labels=legend_labels, loc='lower right', title='Compounds')
