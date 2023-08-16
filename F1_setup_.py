@@ -193,7 +193,7 @@ def tyre_strategy(year, race, session):
     plt.tight_layout()
     plt.show()
 
-def race_gaps(year, race, session):
+def race_gaps(year, race, session): # plot base - to be upgraded
     
     full_session_name = session_mapping.get(session, 'NA')
     
