@@ -8,6 +8,7 @@ import numpy as np
 import pandas as pd
 import os
 import seaborn as sns
+import plotly.express as plx
 from datetime import datetime
 from datetime import timedelta
 from fastf1.core import Laps
