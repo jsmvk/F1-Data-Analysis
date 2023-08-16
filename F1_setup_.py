@@ -192,3 +192,38 @@ def tyre_strategy(year, race, session):
 
     plt.tight_layout()
     plt.show()
+
+def race_gaps(year, race, session):
+    
+    full_session_name = session_mapping.get(session, 'NA')
+    
+    session = ff1.get_session(year, race, session)
+    session.load()
+
+    fig, ax = plt.subplots()
+    fig.set_size_inches(15, 10)
+    
+    drivers = pd.unique(session.laps['Driver'])
+    
+    drivers_data = []
+    
+    for drv in drivers:
+        drvs_qlaps = session.laps.pick_driver(drv).pick_quicklaps()
+        drivers_data.append({'name': drv, 'data': drvs_qlaps})
+       
+    for i in range(len(drivers_data) - 1):
+        drivers_data_1 = drivers_data[i]['data']
+        drivers_data_2 = drivers_data[i + 1]['data']
+        delta_time, ref_tel, compare_tel = utils.delta_time(drivers_data_1, drivers_data_2)
+        lap_numbers = drivers_data_1['LapNumber']
+        
+        min_length = min(len(lap_numbers), len(delta_time))
+        lap_numbers = lap_numbers[:min_length]
+        delta_time = delta_time[:min_length]
+        
+        ax.plot(lap_numbers, delta_time) 
+        
+    ax.axhline(0)
+    ax.set_ylabel(f'<-- drv ahead | drv ahead -->(s)')
+    
+    plt.show()
