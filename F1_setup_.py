@@ -220,9 +220,9 @@ def top_speed(year, race, session):
         driver_name = driver['name']
         ax.scatter(max_speed, max_delta_time, label = driver_name)
 
-    ax.set_xlabel("Max Speed")
-    ax.set_ylabel("Delta Time")
-    ax.set_title(f"Delta Time vs. Max Speed - {full_session_name}")
+    ax.set_xlabel('Max Speed')
+    ax.set_ylabel('Delta Time')
+    ax.set_title(f'Delta Time vs. Max Speed - {full_session_name}')
     ax.legend()
 
     plt.show()
