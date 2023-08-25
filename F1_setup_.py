@@ -193,6 +193,40 @@ def tyre_strategy(year, race, session):
     plt.tight_layout()
     plt.show()
 
+def top_speed(year, race, session):
+    full_session_name = session_mapping.get(session, 'NA')
+    
+    session = ff1.get_session(year, race, session)
+    session.load()
+
+    fig, ax = plt.subplots()
+    fig.set_size_inches(20, 10)
+    
+    drivers = pd.unique(session.laps['Driver'])
+    
+    drivers_data = []
+    
+    for i in drivers:
+        fast_driver = session.laps.pick_driver(i).pick_fastest()
+        driver_car_data = fast_driver.get_car_data()
+        max_speed = max(driver_car_data['Speed'])
+        drivers_data.append({'name': i, 'data': fast_driver, 'car_data': driver_car_data, 'max_speed': max_speed})
+        
+    for driver in drivers_data:
+        delta_time, ref_tel, compare_tel = utils.delta_time(drivers_data[0]['data'], driver['data'])
+        max_speed = driver['max_speed']
+        max_delta_time = max(delta_time)
+        
+        driver_name = driver['name']
+        ax.scatter(max_speed, max_delta_time, label = driver_name)
+
+    ax.set_xlabel("Max Speed")
+    ax.set_ylabel("Delta Time")
+    ax.set_title(f"Delta Time vs. Max Speed - {full_session_name}")
+    ax.legend()
+
+    plt.show()
+
 def race_gaps(year, race, session): # plot base - to be upgraded
     
     full_session_name = session_mapping.get(session, 'NA')
