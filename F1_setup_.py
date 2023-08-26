@@ -208,9 +208,7 @@ def top_speed(year, race, session): # works but colors for teams are not correct
     
     for i in drivers:
         fast_driver = session.laps.pick_driver(i).pick_fastest()
-        driver_car_data = fast_driver.get_car_data()
-        max_speed = max(driver_car_data['Speed'])
-        drivers_data.append({'name': i, 'data': fast_driver, 'car_data': driver_car_data, 'max_speed': max_speed})
+        drivers_data.append({'name': i, 'data': fast_driver})
         
      for driver in drivers_data:
         laps_best = driver['data']
