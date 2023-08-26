@@ -241,6 +241,7 @@ def top_speed(year, race, session): # works but colors for teams are not correct
     fig.update_layout(plot_bgcolor = 'rgb(220, 220, 220)')
     fig.update_layout(font_color = 'rgb(70, 70, 70)')
     fig.update_layout(title = f'{full_session_name} {year} {race} <br> lap times delta to best lap', title_x = 0.5)
+    fig.update_layout(yaxis_title = 'Delta (s)', xaxis_title = 'Max Speed (kph)')
     fig.show()
 
 def race_gaps(year, race, session): # plot base - to be upgraded
