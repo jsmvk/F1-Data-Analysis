@@ -232,7 +232,7 @@ def top_speed(year, race, session): # works but colors for teams are not correct
     laps_best_team.rename(columns = {'SpeedST': 'Max_Speed'}, inplace = True)
 
     fastest = laps_best_team.iloc[0, 0]
-    laps_best_team['Delta'] = laps_best_team['LapTime'] - fastest
+    laps_best_team['Delta'] = laps_best_team['LapTime'] - fastest # for every driver lap time minus session fastest lap
     laps_best_team['Delta'] = laps_best_team['Delta'] / np.timedelta64(1, 's')
     laps_best_team.reset_index(inplace = True)
     
