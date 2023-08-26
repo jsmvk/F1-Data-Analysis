@@ -133,7 +133,10 @@ def session_pace(year, race, session, driver_1, driver_2):
         driver['data'] = fast_laps
         lap_times = driver['data']['LapTime']
         max_lap_number = len(lap_times) + 1
+        
         corrected_lap_times = [fuel_corrected_lap_time(lt, ln, max_lap_number) for ln, lt in enumerate(lap_times, start=1)]
+        corrected_lap_times = [lt.total_seconds() for lt in corrected_lap_times]
+        
         ax.plot(range(1, len(lap_times) + 1), corrected_lap_times, label=driver['name'], color = ff1.plotting.driver_color(driver['name']))
 
     ax.set_xlabel('Lap Number')
