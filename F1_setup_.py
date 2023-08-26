@@ -193,7 +193,7 @@ def tyre_strategy(year, race, session):
     plt.tight_layout()
     plt.show()
 
-def top_speed(year, race, session):
+def top_speed(year, race, session): # works but colors for teams are not correct
     full_session_name = session_mapping.get(session, 'NA')
     
     session = ff1.get_session(year, race, session)
