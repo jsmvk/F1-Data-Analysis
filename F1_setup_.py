@@ -216,7 +216,7 @@ def top_speed(year, race, session): # works but colors for teams are not correct
     laps_best_detail = [driver['data'] for driver in drivers_data]
     laps_best_detail = pd.DataFrame(laps_best_detail)
     
-    laps_best = ['LapTime', 'Team', 'Driver', 'SpeedST']
+    laps_best = ['LapTime', 'Team', 'Driver', 'SpeedST'] # SpeedST (float): Speedtrap on longest straight (Not sure) [km/h] comment source: https://docs.fastf1.dev/core.html 
     laps_best = pd.DataFrame(laps_best_detail[laps_best])
     laps_best.reset_index(inplace = True)
     laps_best = laps_best.drop(['index'], axis = 1)
