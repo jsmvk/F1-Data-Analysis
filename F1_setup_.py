@@ -230,10 +230,10 @@ def top_speed(year, race, session): # works but colors for teams are not correct
     laps_best_team = pd.DataFrame(laps_best_team)
     laps_best_team = laps_best_team.sort_values(by = 'LapTime')
     laps_best_team.rename(columns = {'SpeedST': 'Max_Speed'}, inplace = True)
+    laps_best_team['LapTime'] = laps_best_team['LapTime'] / np.timedelta64(1, 's')
 
     fastest = laps_best_team.iloc[0, 0]
     laps_best_team['Delta'] = laps_best_team['LapTime'] - fastest # for every driver lap time minus session fastest lap
-    laps_best_team['Delta'] = laps_best_team['Delta'] / np.timedelta64(1, 's')
     laps_best_team.reset_index(inplace = True)
     
     fig = px.scatter(laps_best_team, x = 'Max_Speed', y = 'Delta', text = 'Team', color = 'Team')
