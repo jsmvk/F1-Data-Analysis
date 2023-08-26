@@ -212,20 +212,35 @@ def top_speed(year, race, session):
         max_speed = max(driver_car_data['Speed'])
         drivers_data.append({'name': i, 'data': fast_driver, 'car_data': driver_car_data, 'max_speed': max_speed})
         
-    for driver in drivers_data:
-        delta_time, ref_tel, compare_tel = utils.delta_time(drivers_data[0]['data'], driver['data'])
-        max_speed = driver['max_speed']
-        max_delta_time = max(delta_time)
-        
-        driver_name = driver['name']
-        ax.scatter(max_speed, max_delta_time, label = driver_name)
-
-    ax.set_xlabel('Max Speed')
-    ax.set_ylabel('Delta Time')
-    ax.set_title(f'Delta Time vs. Max Speed - {full_session_name}')
-    ax.legend()
-
-    plt.show()
+     for driver in drivers_data:
+        laps_best = driver['data']
+    
+    laps_best_detail = [driver['data'] for driver in drivers_data]
+    laps_best_detail = pd.DataFrame(laps_best_detail)
+    
+    laps_best = ['LapTime', 'Team', 'Driver', 'SpeedST']
+    laps_best = pd.DataFrame(laps_best_detail[laps_best])
+    laps_best.reset_index(inplace = True)
+    laps_best = laps_best.drop(['index'], axis = 1)
+    
+    aggregations = {
+    'LapTime': 'min',          
+    'SpeedST': 'first'}
+    
+    laps_best_team = laps_best.groupby('Team').agg(aggregations)
+    
+    laps_best_team = pd.DataFrame(laps_best_team)
+    laps_best_team = laps_best_team.sort_values(by = 'LapTime')
+    
+    fastest = laps_best_team.iloc[0, 0]
+    laps_best_team['Delta'] = laps_best_team['LapTime'] - fastest
+    laps_best_team['Delta'] = laps_best_team['Delta'] / np.timedelta64(1, 's')
+    laps_best_team.reset_index(inplace = True)
+    
+    fig = px.scatter(laps_best_team, x = 'SpeedST', y = 'Delta', text = 'Team', color = 'Team')
+    fig.update_layout(plot_bgcolor = 'rgb(220, 220, 220)')
+    fig.update_layout(font_color = 'rgb(70, 70, 70)')
+    fig.show()
 
 def race_gaps(year, race, session): # plot base - to be upgraded
     
