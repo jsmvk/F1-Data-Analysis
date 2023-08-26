@@ -231,13 +231,14 @@ def top_speed(year, race, session): # works but colors for teams are not correct
     
     laps_best_team = pd.DataFrame(laps_best_team)
     laps_best_team = laps_best_team.sort_values(by = 'LapTime')
-    
+    laps_best_team.rename(columns = {'SpeedST': 'Max_Speed'}, inplace = True)
+
     fastest = laps_best_team.iloc[0, 0]
     laps_best_team['Delta'] = laps_best_team['LapTime'] - fastest
     laps_best_team['Delta'] = laps_best_team['Delta'] / np.timedelta64(1, 's')
     laps_best_team.reset_index(inplace = True)
     
-    fig = px.scatter(laps_best_team, x = 'SpeedST', y = 'Delta', text = 'Team', color = 'Team')
+    fig = px.scatter(laps_best_team, x = 'Max_Speed', y = 'Delta', text = 'Team', color = 'Team')
     fig.update_layout(plot_bgcolor = 'rgb(220, 220, 220)')
     fig.update_layout(font_color = 'rgb(70, 70, 70)')
     fig.update_layout(title = f'{full_session_name} {year} {race} <br> lap times delta to best lap', title_x = 0.5)
