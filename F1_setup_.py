@@ -28,6 +28,12 @@ session_mapping = {
     'FP2': 'FP2',
     'FP3': 'FP3'}
 
+compound_color = {'HARD': '#f0f0ec', 
+                      'INTERMEDIATE': '#43b02a', 
+                      'MEDIUM': '#ffd12e', 
+                      'SOFT': '#da291c',  
+                      'WET': '#0067ad'}
+
 def session_loading(year, race, session):
     
     event = ff1.get_session(year, race, session)
@@ -148,12 +154,6 @@ def session_pace(year, race, session, driver_1, driver_2):
     ax.legend(loc='lower right')
 
     plt.show()
-
-compound_color = {'HARD': '#f0f0ec', 
-                      'INTERMEDIATE': '#43b02a', 
-                      'MEDIUM': '#ffd12e', 
-                      'SOFT': '#da291c',  
-                      'WET': '#0067ad'}
 
 def tyre_strategy(year, race, session):
     
