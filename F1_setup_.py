@@ -83,7 +83,6 @@ def telemetry(year, race, session, driver_1, driver_2):
     
     plt.show()
 
-
 def pole_gap(year, race, session):
 
     full_session_name = session_mapping.get(session, 'NA')
