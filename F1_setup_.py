@@ -38,8 +38,7 @@ def telemetry(year, race, session, driver_1, driver_2):
     
     full_session_name = session_mapping.get(session, 'NA')
     
-    session = ff1.get_session(year, race, session)
-    session.load()
+    event = session_loading(year, race, session)
 
     fig, ax = plt.subplots(3)
     fig.set_size_inches(20, 10)
@@ -47,7 +46,7 @@ def telemetry(year, race, session, driver_1, driver_2):
     drivers_data = []
     
     for driver_name in [driver_1, driver_2]:
-        fast_driver = session.laps.pick_driver(driver_name).pick_fastest()
+        fast_driver = event.laps.pick_driver(driver_name).pick_fastest()
         driver_car_data = fast_driver.get_car_data()
         drivers_data.append({'name': driver_name, 'data': fast_driver, 'car_data': driver_car_data})
     
@@ -83,15 +82,14 @@ def pole_gap(year, race, session):
 
     full_session_name = session_mapping.get(session, 'NA')
     
-    session = ff1.get_session(year, race, session)
-    session.load()
+    event = session_loading(year, race, session)
     
-    drivers = pd.unique(session.laps['Driver'])
+    drivers = pd.unique(event.laps['Driver'])
     
     list_fastest_laps = list()
 
     for drv in drivers:
-        drvs_fastest_lap = session.laps.pick_driver(drv).pick_fastest()
+        drvs_fastest_lap = event.laps.pick_driver(drv).pick_fastest()
         list_fastest_laps.append(drvs_fastest_lap)
 
     fastest_laps = Laps(list_fastest_laps).sort_values(by='LapTime').reset_index(drop=True)
@@ -116,6 +114,7 @@ def pole_gap(year, race, session):
     ax.set_title(f'{year} {race} {full_session_name} \n Gap to best lap (%)')
 
 def fuel_corrected_lap_time(original_lap_time, lap_number, max_lap_number):
+    
         fuel_correction_time = (max_lap_number - lap_number) * 65 # formula source: https://www.reddit.com/r/F1Technical/comments/11oskuy/computation_of_fuelcorrected_lap_time/
         fuel_correction_timedelta = timedelta(milliseconds=fuel_correction_time)
         corrected_lap_time = original_lap_time - fuel_correction_timedelta
@@ -125,8 +124,7 @@ def session_pace(year, race, session, driver_1, driver_2):
 
     full_session_name = session_mapping.get(session, 'NA')
     
-    session = ff1.get_session(year, race, session)
-    session.load()
+    event = session_loading(year, race, session)
     
     fig, ax = plt.subplots()
     fig.set_size_inches(15, 10)
@@ -134,7 +132,7 @@ def session_pace(year, race, session, driver_1, driver_2):
     drivers_data = [{'name': driver_1}, {'name': driver_2}]
                     
     for driver in drivers_data:
-        fast_laps = session.laps.pick_driver(driver['name']).pick_quicklaps(1.06) # Return all laps with LapTime faster than threshold
+        fast_laps = event.laps.pick_driver(driver['name']).pick_quicklaps(1.06) # Return all laps with LapTime faster than threshold
         driver['data'] = fast_laps
         lap_times = driver['data']['LapTime']
         max_lap_number = len(lap_times) + 1
@@ -161,13 +159,12 @@ def tyre_strategy(year, race, session):
     
     full_session_name = session_mapping.get(session, 'NA')
     
-    session = ff1.get_session(year, race, session)
-    session.load()
-    laps = session.laps
+    event = session_loading(year, race, session)
+    laps = event.laps
 
     fig, ax = plt.subplots(figsize=(15, 10))
     
-    drivers = pd.unique(session.laps['Driver'])
+    drivers = pd.unique(event.laps['Driver'])
 
     stints = laps[['Driver', 'Stint', 'Compound', 'LapNumber']]
     stints = stints.groupby(['Driver', 'Stint', 'Compound'])
@@ -204,18 +201,17 @@ def tyre_strategy(year, race, session):
 def top_speed(year, race, session): # works but colors for teams are not correct
     full_session_name = session_mapping.get(session, 'NA')
     
-    session = ff1.get_session(year, race, session)
-    session.load()
+    event = session_loading(year, race, session)
 
     fig, ax = plt.subplots()
     fig.set_size_inches(20, 10)
     
-    drivers = pd.unique(session.laps['Driver'])
+    drivers = pd.unique(event.laps['Driver'])
     
     drivers_data = []
     
     for i in drivers:
-        fast_driver = session.laps.pick_driver(i).pick_fastest()
+        fast_driver = event.laps.pick_driver(i).pick_fastest()
         drivers_data.append({'name': i, 'data': fast_driver})
         
      for driver in drivers_data:
@@ -255,18 +251,17 @@ def race_gaps(year, race, session): # plot base - to be upgraded
     
     full_session_name = session_mapping.get(session, 'NA')
     
-    session = ff1.get_session(year, race, session)
-    session.load()
+    event = session_loading(year, race, session)
 
     fig, ax = plt.subplots()
     fig.set_size_inches(15, 10)
     
-    drivers = pd.unique(session.laps['Driver'])
+    drivers = pd.unique(event.laps['Driver'])
     
     drivers_data = []
     
     for drv in drivers:
-        drvs_qlaps = session.laps.pick_driver(drv).pick_quicklaps()
+        drvs_qlaps = event.laps.pick_driver(drv).pick_quicklaps()
         drivers_data.append({'name': drv, 'data': drvs_qlaps})
        
     for i in range(len(drivers_data) - 1):
