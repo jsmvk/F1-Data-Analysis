@@ -88,6 +88,9 @@ def pole_gap(year, race, session):
     full_session_name = session_mapping.get(session, 'NA')
     
     event = session_loading(year, race, session)
+
+    fig, ax = plt.subplots()
+    fig.set_size_inches(15, 10)
     
     drivers = pd.unique(event.laps['Driver'])
     
@@ -107,9 +110,6 @@ def pole_gap(year, race, session):
     for index, lap in fastest_laps.iterlaps():
         color = ff1.plotting.team_color(lap['Team'])
         team_colors.append(color)
-        
-    fig, ax = plt.subplots()
-    fig.set_size_inches(15, 10)
     
     ax.barh(fastest_laps.index, fastest_laps['LapTimeDelta'],
             color=team_colors, edgecolor='grey')
