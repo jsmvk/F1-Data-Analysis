@@ -28,6 +28,11 @@ session_mapping = {
     'FP2': 'FP2',
     'FP3': 'FP3'}
 
+def session_loading(year, race, session):
+    
+    event = ff1.get_session(year, race, session)
+    event.load()
+    return event
 
 def telemetry(year, race, session, driver_1, driver_2):
     
