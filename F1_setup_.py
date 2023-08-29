@@ -245,37 +245,3 @@ def top_speed(year, race, session): # works but colors for teams are not correct
     fig.update_layout(title = f'{full_session_name} {year} {race} <br> lap times delta to best lap', title_x = 0.5)
     fig.update_layout(yaxis_title = 'Delta (s)', xaxis_title = 'Max Speed (kph)')
     fig.show()
-
-def race_gaps(year, race, session): # plot base - to be upgraded
-    
-    full_session_name = session_mapping.get(session, 'NA')
-    
-    event = session_loading(year, race, session)
-
-    fig, ax = plt.subplots()
-    fig.set_size_inches(15, 10)
-    
-    drivers = pd.unique(event.laps['Driver'])
-    
-    drivers_data = []
-    
-    for drv in drivers:
-        drvs_qlaps = event.laps.pick_driver(drv).pick_quicklaps()
-        drivers_data.append({'name': drv, 'data': drvs_qlaps})
-       
-    for i in range(len(drivers_data) - 1):
-        drivers_data_1 = drivers_data[i]['data']
-        drivers_data_2 = drivers_data[i + 1]['data']
-        delta_time, ref_tel, compare_tel = utils.delta_time(drivers_data_1, drivers_data_2)
-        lap_numbers = drivers_data_1['LapNumber']
-        
-        min_length = min(len(lap_numbers), len(delta_time))
-        lap_numbers = lap_numbers[:min_length]
-        delta_time = delta_time[:min_length]
-        
-        ax.plot(lap_numbers, delta_time) 
-        
-    ax.axhline(0)
-    ax.set_ylabel(f'<-- drv ahead | drv ahead -->(s)')
-    
-    plt.show()
