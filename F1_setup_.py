@@ -36,9 +36,9 @@ compound_color = {'HARD': '#f0f0ec',
 
 def session_loading(year, race, session):
     
-    event = ff1.get_session(year, race, session)
-    event.load()
-    return event
+    event_data = ff1.get_session(year, race, session)
+    event_data.load()
+    return event_data
 
 def telemetry(year, race, session, driver_1, driver_2):
     
