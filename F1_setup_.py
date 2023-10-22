@@ -27,13 +27,11 @@ compound_color = {'HARD': '#f0f0ec',
                       'WET': '#0067ad'}
 
 def session_loading(year, race, session):
-    
     event_data = ff1.get_session(year, race, session)
     event_data.load()
     return event_data
 
 def telemetry(year, race, session, driver_1, driver_2):
-    
     full_session_name = session_mapping.get(session, 'NA')
     
     event = session_loading(year, race, session)
@@ -76,7 +74,6 @@ def telemetry(year, race, session, driver_1, driver_2):
     plt.show()
 
 def pole_gap(year, race, session):
-
     full_session_name = session_mapping.get(session, 'NA')
     
     event = session_loading(year, race, session)
@@ -111,14 +108,12 @@ def pole_gap(year, race, session):
     ax.set_title(f'{year} {race} {full_session_name} \n Gap to best lap (%)')
 
 def fuel_corrected_lap_time(original_lap_time, lap_number, max_lap_number):
-    
         fuel_correction_time = (max_lap_number - lap_number) * 65 # formula source: https://www.reddit.com/r/F1Technical/comments/11oskuy/computation_of_fuelcorrected_lap_time/
         fuel_correction_timedelta = timedelta(milliseconds=fuel_correction_time)
         corrected_lap_time = original_lap_time - fuel_correction_timedelta
         return corrected_lap_time
 
 def session_pace(year, race, session, driver_1, driver_2):
-
     full_session_name = session_mapping.get(session, 'NA')
     
     event = session_loading(year, race, session)
@@ -147,7 +142,6 @@ def session_pace(year, race, session, driver_1, driver_2):
     plt.show()
 
 def tyre_strategy(year, race, session):
-    
     full_session_name = session_mapping.get(session, 'NA')
     
     event = session_loading(year, race, session)
