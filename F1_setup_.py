@@ -20,14 +20,6 @@ os.chdir('C:/Users/jsmvk/Desktop/projects/Lic')
 
 ff1.Cache.enable_cache('cache')
 
-session_mapping = {
-    'Q': 'Qualifying',
-    'R': 'Race',
-    'S': 'Sprint',
-    'FP1': 'FP1',
-    'FP2': 'FP2',
-    'FP3': 'FP3'}
-
 compound_color = {'HARD': '#f0f0ec', 
                       'INTERMEDIATE': '#43b02a', 
                       'MEDIUM': '#ffd12e', 
