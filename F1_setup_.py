@@ -161,7 +161,6 @@ def tyre_strategy(year, race, session):
         previous_stint_end = 0
         
         for idx, row in driver_stints.iterrows():
-            
             plt.barh(y = driver,
                 width = row['StintLength'],
                 left = previous_stint_end, # start of horizontal bar - new stint
