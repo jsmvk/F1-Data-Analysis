@@ -26,6 +26,14 @@ compound_color = {'HARD': '#f0f0ec',
                       'SOFT': '#da291c',  
                       'WET': '#0067ad'}
 
+session_mapping = {
+    'Q': 'Qualifying',
+    'R': 'Race',
+    'S': 'Sprint',
+    'FP1': 'FP1',
+    'FP2': 'FP2',
+    'FP3': 'FP3'}
+
 def session_loading(year, race, session):
     event_data = ff1.get_session(year, race, session)
     event_data.load()
